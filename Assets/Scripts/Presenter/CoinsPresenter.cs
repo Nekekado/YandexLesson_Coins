@@ -1,8 +1,9 @@
 using UnityEngine;
+using Zenject;
 
 public class CoinsPresenter : MonoBehaviour
 {
-    [SerializeField] private Coins _coins;
+    [Inject] private Coins _coins;
     [SerializeField] private Animator _animator;
     
     private void OnTriggerEnter(Collider other)

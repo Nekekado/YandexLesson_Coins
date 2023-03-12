@@ -1,14 +1,12 @@
 using System;
 using UnityEngine;
 
-public class Coins : MonoBehaviour
+public class Coins
 {
-    [SerializeField] private CompositeRoot _compositeRoot;//
-
     private int _amount;
 
     public int Amount => _amount;
-    public event Action CoinUpped;
+    public event Action CoinsChanged;
 
     public Coins(int count)
     {
@@ -18,7 +16,7 @@ public class Coins : MonoBehaviour
     public void OnPickupCoin()
     {
         _amount++;
-        _compositeRoot.SetCountOfCoins(_amount);//
+        CoinsChanged?.Invoke();
     }
 
     public bool TryDiscard(int price)
@@ -28,8 +26,7 @@ public class Coins : MonoBehaviour
 
         _amount -= price;
 
-        _compositeRoot.SetCountOfCoins(_amount);//
-        PlayerPrefs.SetInt("Coins", _amount);//
+        CoinsChanged?.Invoke();
 
         return true;
     }
